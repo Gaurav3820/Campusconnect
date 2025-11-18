@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>CampusConnect — Dashboard</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="brand">
+        <h1>CampusConnect</h1>
+      </div>
+      <nav>
+        <a href="index.html" class="nav-item active">🏠 Dashboard</a>
+        <a href="notices.html" class="nav-item">📣 Notices</a>
+        <a href="materials.html" class="nav-item">📚 Materials</a>
+        <a href="forum.html" class="nav-item">💬 Forum</a>
+        <a href="profile.html" class="nav-item">👤 Profile</a>
+      </nav>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <header class="topbar">
+        <div class="search">
+          <input id="searchInput" placeholder="Search anything..." />
+        </div>
+        <div class="profile-area">
+          <span id="usernameTop">Guest</span>
+          <img id="profilePic" class="avatar" src="https://i.pravatar.cc/40" alt="avatar">
+        </div>
+      </header>
+
+      <section class="content">
+        <div class="welcome">
+          <h2>Welcome Back, <span id="welcomeName">John</span> 👋</h2>
+          <p>Here’s what’s happening on your campus today.</p>
+        </div>
+
+        <div class="cards-row">
+
+         <a href="notices.html" class="card notice-card card-link">
+           <h3>📣 Notices</h3>
+           <p id="noticeCount">0 new updates today</p>
+         </a>
+         
+         <a href="materials.html" class="card materials-card card-link">
+           <h3>📚 Study Materials</h3>
+           <p id="materialsCount">0 uploads this week</p>
+         </a>
+         
+         <a href="forum.html" class="card forum-card card-link">
+           <h3>💬 Forum Posts</h3>
+           <p id="forumCount">0 new answers</p>
+         </a>
+         
+        </div>
+
+
+        <div class="highlights card big-card">
+          <h3>Today's Highlights</h3>
+          <ul id="highlightsList">
+            <li>📌 Midterm exams start from 15th Nov.</li>
+            <li>📌 Cultural Fest registrations are open!</li>
+            <li>📌 New library books have been added.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    // Populate dashboard dynamic data after app.js loads
+    (async () => {
+      await app.init(); // ensure auth loaded
+      document.getElementById('welcomeName').innerText = app.user?.name || 'Student';
+      document.getElementById('usernameTop').innerText = app.user?.name || 'Guest';
+
+      // load counts from APIs
+      const notices = await app.apiGet('/notices/all').catch(()=>[]);
+      const materials = await app.apiGet('/materials/all').catch(()=>[]);
+      const questions = await app.apiGet('/qa/questions').catch(()=>[]);
+
+      document.getElementById('noticeCount').innerText = `${notices.length} new updates today`;
+      document.getElementById('materialsCount').innerText = `${materials.length} uploads this week`;
+      document.getElementById('forumCount').innerText = `${questions.length} questions`;
+    })();
+  </script>
+</body>
+</html>

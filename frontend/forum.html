@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Forum — CampusConnect</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><h1>CampusConnect</h1></div>
+      <nav>
+        <a href="index.html" class="nav-item">🏠 Dashboard</a>
+        <a href="notices.html" class="nav-item">📣 Notices</a>
+        <a href="materials.html" class="nav-item">📚 Materials</a>
+        
+        <a href="forum.html" class="nav-item active">💬 Forum</a>
+        <a href="profile.html" class="nav-item">👤 Profile</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="search"><input placeholder="Search anything..." /></div>
+        <div class="profile-area"><img class="avatar" src="https://i.pravatar.cc/40"></div>
+      </header>
+
+      <section class="content">
+        <h2>Forum</h2>
+
+        <div class="card">
+          <form id="askForm">
+            <input id="qText" placeholder="Ask a question..." required />
+            <button type="submit">Post Question</button>
+          </form>
+        </div>
+
+        <div id="questionsList" class="card big-card"></div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    (async ()=>{
+      await app.init();
+      const qList = document.getElementById('questionsList');
+
+      async function loadQuestions(){
+        const questions = await app.apiGet('/qa/questions').catch(()=>[]);
+        if (!questions.length) qList.innerHTML = '<p>No questions yet.</p>';
+        else {
+          qList.innerHTML = questions.map(q => `
+            <div class="question">
+              <h4>${q.question}</h4>
+              <small>Asked: ${new Date(q.created_at).toLocaleString()}</small>
+              <div class="answers" id="answers-${q.id}"></div>
+              <form data-qid="${q.id}" class="answerForm">
+                <input name="answer" placeholder="Write an answer..." required />
+                <button>Answer</button>
+              </form>
+            </div>
+          `).join('');
+          // attach handlers for answers
+          document.querySelectorAll('.answerForm').forEach(f=>{
+            f.addEventListener('submit', async (e)=>{
+              e.preventDefault();
+              const qid = e.target.getAttribute('data-qid');
+              const answer = e.target.answer.value;
+              await app.apiPost('/qa/answer', { question_id: qid, answer, answered_by: app.user?.id || 1 });
+              e.target.reset();
+              loadQuestions();
+            });
+          });
+        }
+      }
+
+      document.getElementById('askForm').addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const question = document.getElementById('qText').value;
+        await app.apiPost('/qa/ask', { question, asked_by: app.user?.id || 1 });
+        document.getElementById('qText').value = '';
+        loadQuestions();
+      });
+
+      await loadQuestions();
+    })();
+  </script>
+</body>
+</html>

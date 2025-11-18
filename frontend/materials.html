@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Materials — CampusConnect</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand"><h1>CampusConnect</h1></div>
+      <nav>
+        <a href="index.html" class="nav-item">🏠 Dashboard</a>
+        <a href="notices.html" class="nav-item">📣 Notices</a>
+        <a href="materials.html" class="nav-item active">📚 Materials</a>
+    
+        <a href="forum.html" class="nav-item">💬 Forum</a>
+        <a href="profile.html" class="nav-item">👤 Profile</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="search"><input placeholder="Search anything..." /></div>
+        <div class="profile-area"><img class="avatar" src="https://i.pravatar.cc/40"></div>
+      </header>
+
+      <section class="content">
+        <h2>Upload Material</h2>
+
+        <div class="card">
+          <form id="uploadForm" enctype="multipart/form-data">
+            <input id="matTitle" placeholder="Material Title" required />
+            <input id="matFile" type="file" required />
+            <button type="submit">Upload</button>
+          </form>
+        </div>
+
+        <div class="card big-card">
+          <h3>Available Materials</h3>
+          <div id="materialsList"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/app.js"></script>
+  <script>
+    (async ()=>{
+      await app.init();
+      const materialsList = document.getElementById('materialsList');
+
+      async function loadMaterials(){
+        const materials = await app.apiGet('/materials/all').catch(()=>[]);
+        materialsList.innerHTML = materials.length ? materials.map(m => `
+          <div class="mat-item">
+            <strong>${m.title}</strong>
+            <a href="http://localhost:5000/uploads/${m.filename}" target="_blank" download>Download</a>
+            <div class="muted">Uploaded at ${new Date(m.created_at).toLocaleString()}</div>
+          </div>
+        `).join('') : '<p>No materials uploaded yet.</p>';
+      }
+      await loadMaterials();
+
+      document.getElementById('uploadForm').addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const title = document.getElementById('matTitle').value;
+        const file = document.getElementById('matFile').files[0];
+        if (!file) return alert('Choose file');
+
+        const fd = new FormData();
+        fd.append('title', title);
+        fd.append('uploaded_by', app.user?.id || 1);
+        fd.append('file', file);
+
+        const res = await app.fetchRaw('/materials/upload', { method: 'POST', body: fd });
+        const json = await res.json();
+        alert(json.msg || 'Uploaded');
+        document.getElementById('uploadForm').reset();
+        await loadMaterials();
+      });
+    })();
+  </script>
+</body>
+</html>
