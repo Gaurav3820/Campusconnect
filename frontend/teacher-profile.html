@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Teacher Profile</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-title">SBU Connect – Profile</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="goTo('teacher-dashboard.html')">Dashboard</li>
+        <li class="sidebar-item" onclick="goTo('teacher-upload-notes.html')">Upload Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-manage-notes.html')">Manage Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-qa-forum.html')">Q&A (Manage)</li>
+        <li class="sidebar-item active" onclick="goTo('teacher-profile.html')">Profile</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="welcome-section">
+        <h1>Teacher Profile</h1>
+        <p>View your profile details</p>
+      </div>
+
+      <div class="recent-notes" style="text-align:center;">
+        <img id="teacherAvatar" src="https://cdn-icons-png.flaticon.com/512/924/924874.png" width="120" style="border-radius:50%; margin-bottom:20px;">
+        <h2 id="teacherName">Teacher Name</h2>
+        <p id="teacherEmail" style="color:#777; margin-bottom:20px;">email@example.com</p>
+
+        <div style="text-align:left; margin:auto; max-width:600px;">
+          <p><strong>Department:</strong> <span id="teacherDept"></span></p>
+          <p><strong>Faculty ID:</strong> <span id="teacherFacultyId"></span></p>
+          <p><strong>Phone:</strong> <span id="teacherPhone"></span></p>
+          <p><strong>About:</strong><br><span id="teacherBio"></span></p>
+        </div>
+
+        <button class="btn btn-primary" onclick="goTo('teacher-edit-profile.html')" style="margin-top:20px;">Edit Profile</button>
+      </div>
+    </main>
+  </div>
+
+  <script src="teacher-script.js"></script>
+</body>
+</html>

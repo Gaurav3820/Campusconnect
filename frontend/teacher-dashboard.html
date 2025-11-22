@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Teacher Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-title">SBU Connect – Teacher Dashboard</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item active" onclick="goTo('teacher-dashboard.html')">Dashboard</li>
+        <li class="sidebar-item" onclick="goTo('teacher-upload-notes.html')">Upload Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-manage-notes.html')">Manage Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-qa-forum.html')">Q&A (Manage)</li>
+        <li class="sidebar-item" onclick="goTo('teacher-profile.html')">Profile</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="welcome-section">
+        <h1 class="welcome-text">Welcome, Teacher</h1>
+        <p class="welcome-subtitle">Use the sidebar to manage notes, answer student questions, and edit your profile.</p>
+      </div>
+
+      <div class="dashboard-cards">
+        <div class="card" onclick="goTo('teacher-upload-notes.html')">
+          <div class="card-icon">📤</div>
+          <h2 class="card-title">Upload Notes</h2>
+          <p class="card-description">Share new study materials with your students.</p>
+        </div>
+
+        <div class="card" onclick="goTo('teacher-manage-notes.html')">
+          <div class="card-icon">📚</div>
+          <h2 class="card-title">Manage Notes</h2>
+          <p class="card-description">Edit or remove notes you uploaded earlier.</p>
+        </div>
+
+        <div class="card" onclick="goTo('teacher-qa-forum.html')">
+          <div class="card-icon">❓</div>
+          <h2 class="card-title">Q&A Forum</h2>
+          <p class="card-description">View student questions and reply or moderate them.</p>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="teacher-script.js"></script>
+</body>
+</html>

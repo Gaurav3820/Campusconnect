@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Edit Teacher Profile</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-title">SBU Connect – Edit Profile</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="goTo('teacher-dashboard.html')">Dashboard</li>
+        <li class="sidebar-item" onclick="goTo('teacher-upload-notes.html')">Upload Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-manage-notes.html')">Manage Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-qa-forum.html')">Q&A (Manage)</li>
+        <li class="sidebar-item active" onclick="goTo('teacher-edit-profile.html')">Edit Profile</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="welcome-section">
+        <h1>Edit Profile</h1>
+        <p>Update your personal and faculty details</p>
+      </div>
+
+      <div class="upload-form">
+        <form id="teacherEditProfileForm" onsubmit="saveTeacherProfile(event)">
+          <div class="form-group">
+            <label class="form-label">Full Name</label>
+            <input id="tName" class="form-input" type="text">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input id="tEmail" class="form-input" type="email">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Department</label>
+            <input id="tDept" class="form-input" type="text">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Faculty ID</label>
+            <input id="tFacultyId" class="form-input" type="text">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Phone</label>
+            <input id="tPhone" class="form-input" type="text">
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">About / Bio</label>
+            <textarea id="tBio" class="form-textarea"></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Save Profile</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="teacher-script.js"></script>
+</body>
+</html>

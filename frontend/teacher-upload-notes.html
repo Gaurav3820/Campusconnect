@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Teacher - Upload Notes</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-title">SBU Connect – Upload Notes</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="goTo('teacher-dashboard.html')">Dashboard</li>
+        <li class="sidebar-item active" onclick="goTo('teacher-upload-notes.html')">Upload Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-manage-notes.html')">Manage Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-qa-forum.html')">Q&A (Manage)</li>
+        <li class="sidebar-item" onclick="goTo('teacher-profile.html')">Profile</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="welcome-section">
+        <h1>Upload New Note</h1>
+        <p>Fill out the form to upload a PDF or attach a filename.</p>
+      </div>
+
+      <div class="upload-form">
+        <form id="teacherUploadForm" onsubmit="teacherUploadNote(event)">
+          <div class="form-group">
+            <label class="form-label">Title *</label>
+            <input name="title" class="form-input" type="text" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Subject *</label>
+            <input name="subject" class="form-input" type="text" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-textarea"></textarea>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Upload PDF File *</label>
+            <div class="file-input-wrapper">
+              <label class="file-input-label">
+                <div style="font-size:2rem; margin-bottom:0.5rem;">📄</div>
+                <div style="color:#667eea; font-weight:600;">Click to upload PDF</div>
+                <input name="file" type="file" class="file-input" accept=".pdf" required>
+              </label>
+            </div>
+          </div>
+
+          <button type="submit" class="submit-btn">Upload Note</button>
+        </form>
+      </div>
+    </main>
+  </div>
+
+  <script src="teacher-script.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Teacher Q&A Forum</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar-title">SBU Connect – Q&A </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+        <li class="sidebar-item" onclick="goTo('teacher-dashboard.html')">Dashboard</li>
+        <li class="sidebar-item" onclick="goTo('teacher-upload-notes.html')">Upload Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-manage-notes.html')">Manage Notes</li>
+        <li class="sidebar-item active" onclick="goTo('teacher-qa-forum.html')">Q&A (Manage)</li>
+        <li class="sidebar-item" onclick="goTo('teacher-profile.html')">Profile</li>
+      </ul>
+    </aside>
+
+    <main class="main-content">
+      <div class="welcome-section">
+        <h1>Q&A Forum</h1>
+        <p>Answer student questions and moderate replies.</p>
+      </div>
+
+      <div class="recent-notes">
+        <div class="section-title">Student Questions</div>
+        <div id="teacherQAList" class="qa-container">
+          <!-- questions injected by teacher-script.js -->
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script src="teacher-script.js"></script>
+</body>
+</html>

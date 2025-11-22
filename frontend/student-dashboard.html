@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Student Dashboard</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <link rel="stylesheet" href="dashboard.css" />
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="navbar-brand">SBU Connect</div>
+    <div class="navbar-search">
+      <input id="searchInput" class="search-input" placeholder="Search notes..." />
+    </div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </div>
+
+  <!-- Container -->
+  <div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+
+      <div class="menu-item active" onclick="location.href='student-dashboard.html'">
+        <span class="menu-icon">🏠</span><span>Dashboard</span>
+      </div>
+
+      <div class="menu-item" onclick="location.href='upload-notes.html'">
+        <span class="menu-icon">📤</span><span>Upload Notes</span>
+      </div>
+
+      <div class="menu-item" onclick="location.href='student-view-notes.html'">
+        <span class="menu-icon">📚</span><span>View Notes</span>
+      </div>
+
+      <div class="menu-item" onclick="location.href='student-notice.html'">
+        <span class="menu-icon">📢</span><span>Notices</span>
+      </div>
+
+      <div class="menu-item" onclick="location.href='student-qa-forum.html'">
+        <span class="menu-icon">❓</span><span>Q&A Forum</span>
+      </div>
+
+      <div class="menu-item" onclick="location.href='student-profile.html'">
+        <span class="menu-icon">👤</span><span>Profile</span>
+      </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+
+      <!-- Welcome Section -->
+      <div class="welcome-section">
+        <h1>Welcome to SBU Connect! 👋</h1>
+        <p>Your platform for sharing and accessing study materials</p>
+      </div>
+
+      <!-- Action Cards -->
+      <div class="quick-actions">
+
+        <div class="action-card" onclick="location.href='upload-notes.html'">
+          <div class="action-icon">📤</div>
+          <h3>Upload Notes</h3>
+          <p>Share your study materials with classmates.</p>
+        </div>
+
+        <div class="action-card" onclick="location.href='student-view-notes.html'">
+          <div class="action-icon">📚</div>
+          <h3>View Notes</h3>
+          <p>Browse available notes shared by others.</p>
+        </div>
+
+        <div class="action-card" onclick="location.href='student-qa-forum.html'">
+          <div class="action-icon">❓</div>
+          <h3>Q&A Forum</h3>
+          <p>Ask questions or help others by replying.</p>
+        </div>
+
+      </div>
+
+      <!-- Recent Notes Section -->
+      <div class="recent-notes">
+        <div class="section-title">Recent Notes</div>
+        <div class="notes-grid"></div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

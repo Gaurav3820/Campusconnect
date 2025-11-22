@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Upload Notes</title>
+  <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<div class="navbar">
+  <div class="navbar-brand">SBU Connect</div>
+  <div class="navbar-search">
+    <input id="searchInput" class="search-input" placeholder="Search notes...">
+  </div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
+</div>
+
+<!-- Main Container -->
+<div class="container">
+
+  <!-- Sidebar -->
+  <div class="sidebar">
+
+    <div class="menu-item" onclick="location.href='student-dashboard.html'">
+      <span class="menu-icon">🏠</span><span>Dashboard</span>
+    </div>
+
+    <div class="menu-item active" onclick="location.href='upload-notes.html'">
+      <span class="menu-icon">📤</span><span>Upload Notes</span>
+    </div>
+
+    <div class="menu-item" onclick="location.href='student-view-notes.html'">
+      <span class="menu-icon">📚</span><span>View Notes</span>
+    </div>
+
+    <div class="menu-item" onclick="location.href='student-notice.html'">
+      <span class="menu-icon">📢</span><span>Notices</span>
+    </div>
+
+    <div class="menu-item" onclick="location.href='student-qa-forum.html'">
+      <span class="menu-icon">❓</span><span>Q&A Forum</span>
+    </div>
+
+    <div class="menu-item" onclick="location.href='student-profile.html'">
+      <span class="menu-icon">👤</span><span>Profile</span>
+    </div>
+
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Header -->
+    <div class="welcome-section">
+      <h1>Upload Notes 📤</h1>
+      <p>Share your study materials with students and teachers.</p>
+    </div>
+
+    <!-- Upload Form -->
+    <div class="recent-notes">
+      
+      <form id="uploadForm" class="upload-form">
+
+        <div class="form-group">
+          <label>Title</label>
+          <input type="text" name="title" placeholder="Enter note title">
+        </div>
+
+        <div class="form-group">
+          <label>Subject</label>
+          <input type="text" name="subject" placeholder="Enter subject name">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea name="description" placeholder="Short description of your notes"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Your Name</label>
+          <input type="text" name="author" placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label>Upload File (Optional)</label>
+          <input type="file" name="file">
+        </div>
+
+        <div class="form-group">
+          <label>Or Enter File Name</label>
+          <input type="text" name="filename" placeholder="example: notes.pdf">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Upload</button>
+
+      </form>
+
+    </div>
+
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
