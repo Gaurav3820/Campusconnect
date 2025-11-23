@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Teacher – Manage Notices</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="teacher.css">
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="navbar-title">SBU Connect – Manage Notices</div>
+    <button class="logout-btn" onclick="logout()">Logout</button>
+  </nav>
+
+  <div class="container">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <ul class="sidebar-menu">
+
+        <li class="sidebar-item" onclick="goTo('teacher-dashboard.html')">Dashboard</li>
+        <li class="sidebar-item" onclick="goTo('teacher-upload-notes.html')">Upload Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-manage-notes.html')">Manage Notes</li>
+        <li class="sidebar-item" onclick="goTo('teacher-notices.html')">Manage Notices</li>
+        <li class="sidebar-item" onclick="goTo('teacher-qa-forum.html')">Q&A (Manage)</li>
+        <li class="sidebar-item" onclick="goTo('teacher-profile.html')">Profile</li>
+
+      </ul>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+
+      <!-- HEADER -->
+      <div class="welcome-section">
+        <h1>Manage Notices 📢</h1>
+        <p>Create, update, or delete important announcements.</p>
+      </div>
+
+      <!-- ADD NOTICE FORM -->
+      <div class="upload-form">
+        <form id="addNoticeForm">
+
+          <div class="form-group">
+            <label class="form-label">Notice Title *</label>
+            <input id="noticeTitle" type="text" class="form-input" required>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Description *</label>
+            <textarea id="noticeDesc" class="form-textarea" required></textarea>
+          </div>
+
+          <button type="submit" class="submit-btn">Add Notice</button>
+          <p id="noticeMsg" style="margin-top:10px; font-weight:600;"></p>
+
+        </form>
+      </div>
+
+      <!-- NOTICE LIST -->
+      <div class="notes-list" style="margin-top:30px;">
+        <div class="notes-header">All Notices</div>
+        <div id="teacherNoticesContainer"></div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="teacher-script.js"></script>
+
+  <script>
+  /*
+    Teacher Notices System
+    Fully integrated with teacher-script.js structure.
+    Uses SBU_NOTICES key (correct across entire platform)
+  */
+
+  // Load notices
+  function loadTeacherNotices() {
+    const list = load("SBU_NOTICES", "[]");
+    const container = document.getElementById("teacherNoticesContainer");
+
+    container.innerHTML = "";
+
+    if (list.length === 0) {
+      container.innerHTML = "<p>No notices uploaded yet.</p>";
+      return;
+    }
+
+    list.slice().reverse().forEach(n => {
+      let div = document.createElement("div");
+      div.className = "notice-item";
+
+      div.innerHTML = `
+        <div class="note-title">${n.title}</div>
+        <div class="note-desc">${n.description}</div>
+        <div class="note-date" style="color:#666; margin-top:5px; font-size:13px;">
+          Posted: ${new Date(n.createdAt).toLocaleString()}
+        </div>
+
+        <div class="note-actions" style="margin-top:10px;">
+          <button class="note-btn delete" onclick="deleteTeacherNotice('${n.id}')">Delete</button>
+        </div>
+      `;
+
+      container.appendChild(div);
+    });
+  }
+
+  // Add new notice
+  document.getElementById("addNoticeForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+
+    const title = document.getElementById("noticeTitle").value.trim();
+    const desc = document.getElementById("noticeDesc").value.trim();
+    const msg = document.getElementById("noticeMsg");
+
+    if (!title || !desc) {
+      msg.style.color = "red";
+      msg.textContent = "Please fill all fields!";
+      return;
+    }
+
+    const notices = load("SBU_NOTICES", "[]");
+
+    notices.push({
+      id: uid(),
+      title,
+      description: desc,
+      createdAt: Date.now()
+    });
+
+    save("SBU_NOTICES", notices);
+
+    msg.style.color = "green";
+    msg.textContent = "Notice added successfully!";
+
+    document.getElementById("noticeTitle").value = "";
+    document.getElementById("noticeDesc").value = "";
+
+    loadTeacherNotices();
+
+    setTimeout(() => msg.textContent = "", 2000);
+  });
+
+  // Delete notice
+  function deleteTeacherNotice(id) {
+    let list = load("SBU_NOTICES", "[]");
+    list = list.filter(n => n.id !== id);
+    save("SBU_NOTICES", list);
+    loadTeacherNotices();
+  }
+
+  // Auto-load notices on page load
+  loadTeacherNotices();
+  </script>
+
+</body>
+</html>
